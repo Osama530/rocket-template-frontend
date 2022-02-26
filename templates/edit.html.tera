@@ -1,0 +1,11 @@
+<h1>Editing</h1>
+
+<form action="/save/{{title}}" method="post">
+    <div>
+        <h2>{{title}}</h2>
+        <textarea name="body" cols="20" rows="80">{{body}}</textarea>
+    </div>
+    <div>
+        <input type="submit" value="save">
+    </div>
+</form>
