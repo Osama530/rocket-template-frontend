@@ -8,6 +8,5 @@ edition = "2021"
 
 [dependencies]
 rocket = "0.4.10"
-# rocket = {version = "*", features = [""]}
 rocket_contrib = {version = "*", features = ["tera_templates"]}
 serde = {version = "*", features = ["derive"]}

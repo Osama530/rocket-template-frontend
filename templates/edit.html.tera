@@ -1,11 +1,10 @@
-<h1>Editing</h1>
+<h1>Editing {{title}}</h1>
 
-<form action="/save/{{title}}" method="post">
+<form action="/save/{{title}}" method="POST">
     <div>
-        <h2>{{title}}</h2>
-        <textarea name="body" cols="20" rows="80">{{body}}</textarea>
+        <textarea name="body" rows="20" cols="80">{{body}}</textarea>
     </div>
     <div>
-        <input type="submit" value="save">
+        <input type="submit" value="Save">
     </div>
 </form>

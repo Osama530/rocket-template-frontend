@@ -1,36 +1,37 @@
-use rocket::response::{content::Html, self, Redirect};
+use rocket::{response::{Redirect}, request::Form};
 use rocket_contrib::templates::Template;
 use std::io;
-use super::Page;
+
+use crate::page::{Page, SaveForm};
+
 
 #[get("/view/<title>")]
 pub fn view(title: String)-> Result<Template, Redirect> {
-    if let Ok(page) = Page::load(title.clone()) {
-        let res = Template::render("view", page);
-        Ok(res)
+    if let page = Page::load(title.clone()).unwrap() {
+        let response = Template::render("index", page);
+        Ok(response)
     } else {
-        Err(Redirect::to(uri!(edit: title)))
+        Err(Redirect::to(uri!(create_page: "test_01")))
     }
 
 }
 
-#[get("/edit/<title>")]
-pub fn edit(title: String)-> Html<String> {
-    let page = Page::load(title.clone()).unwrap_or(Page::blank(title));
-
-    let response = format!("
-    <h1>Editing<h1>
-    <form action=\"/save/{title}\" method=\"POST\">
-            <textarea name=\"body\">{body}</textarea><br>
-            <input type=\"submit\" value=\"Save\">
-    </form>", title = page.title, body = page.body );
-    Html(response)
+#[get("/create/<title>")]
+pub fn create_page(title: String)-> Template {
+    let page = Page::load(title.clone()).unwrap();
+    let response = Template::render("blank", page);
+    response
 }
 
-#[get("/edit_tera/<title>")]
-pub fn edit_tera(title: String)-> Template {
-    let page = Page::load(title.clone()).unwrap_or(Page::blank(title));
+#[post("/save/<title>", data = "<form>")]
+pub fn save_page(title: String, form: Form<SaveForm>)-> io::Result<Redirect> {
+    let form = form.into_inner();
+    let page = Page {
+        title: title.clone(),
+        body: form.body,
+    };
 
-    Template::render("edit", page)
+    page.save();
 
-}
+    Ok(Redirect::to(uri!(view: title)))
+} 
