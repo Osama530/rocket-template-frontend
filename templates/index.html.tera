@@ -1,18 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>test page</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-    <script src='main.js'></script>
-</head>
-<body>
-    <h1>{{title}}</h1>
+<h1>page creating web-app</h1>
 
-    <h2>{{body}}</h2>
-
-
-</body>
-</html>
+<form action="/save" method="POST">
+    <div>
+        <label for="title">title:</label><br>
+        <input type="text" name="title"><br>
+        <label for="body">Body</label><br>
+        <textarea name="body" rows="2" cols="26"></textarea><br>
+    </div>
+    <br>
+    <div>
+        <input type="submit" value="creat page">
+    </div>
+</form>

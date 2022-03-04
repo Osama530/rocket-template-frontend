@@ -11,22 +11,9 @@ use rocket::fairing;
 use rocket_contrib::templates::Template;
 
 fn main() {
-    let page_01 = Page {
-        title: "test_01".to_string(),
-        body: "here is the body for test page 01".to_string()
-    };
-
-    page_01.save();
-    
-    let page_02 = Page {
-        title: "test_02".to_string(),
-        body: "here is the body for test page 02".to_string()
-    };
-
-    page_02.save();
 
     rocket::ignite()
-        .mount("/", routes![view, save_page])
+        .mount("/", routes![index, save, success])
         .attach(Template::fairing())
         .launch();
     
